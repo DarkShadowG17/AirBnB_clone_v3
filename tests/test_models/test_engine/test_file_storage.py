@@ -113,3 +113,31 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get(self):
+        """A method to retrieve one object"""
+        storage = FileStorage()
+        state = State(name="California")
+        state.save()
+        self.assertEqual(state, storage.get(State, state.id))
+        self.assertIsNone(storage.get(State, "fake_id"))
+        self.assertIsNone(storage.get("State", state.id))
+        self.assertIsNone(storage.get(None, state.id))
+        self.assertIsNone(storage.get(None, None))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count(self):
+        """A method to count the number of objects in storage"""
+        storage = FileStorage()
+        state = State(name="California")
+        state.save()
+        self.assertEqual(storage.count(), 1)
+        self.assertEqual(storage.count(State), 1)
+        self.assertEqual(storage.count("State"), 1)
+        self.assertEqual(storage.count(None), 0)
+        self.assertEqual(storage.count(State, state.id), 1)
+        self.assertEqual(storage.count(State, "fake_id"), 0)
+        self.assertEqual(storage.count("State", state.id), 1)
+        self.assertEqual(storage.count(None, state.id), 0)
+        self.assertEqual(storage.count(None, None), 0)
