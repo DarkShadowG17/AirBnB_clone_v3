@@ -25,12 +25,12 @@ def stats():
     if request.method == 'GET':
         response = {}
         PLURALS = {
-            "Amenity": "amenities",
-            "City": "cities",
-            "Place": "places",
-            "Review": "reviews",
-            "State": "states",
-            "User": "users"
+            "amenity": "amenities",
+            "city": "cities",
+            "place": "places",
+            "review": "reviews",
+            "state": "states",
+            "user": "users"
         }
         for key, value in PLURALS.items():
             response[value] = storage.count(key)
