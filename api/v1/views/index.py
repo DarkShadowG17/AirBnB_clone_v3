@@ -20,18 +20,12 @@ def status():
 @app_views.route('/stats', methods=['GET'])
 def stats():
     """
-    function to return the count of all class objects
+    function for stats route that returns the stats
     """
     if request.method == 'GET':
-        response = {}
-        PLURALS = {
-            "Amenity": "amenities",
-            "City": "cities",
-            "Place": "places",
-            "Review": "reviews",
-            "State": "states",
-            "User": "users"
-        }
-        for key, value in PLURALS.items():
-            response[value] = storage.count(key)
-        return jsonify(response)
+        classes = {"amenities": "Amenity", "cities": "City", "places": "Place",
+                   "reviews": "Review", "states": "State", "users": "User"}
+        resp = {}
+        for key, value in classes.items():
+            resp[key] = storage.count(value)
+        return jsonify(resp)
