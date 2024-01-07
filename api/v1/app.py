@@ -17,6 +17,7 @@ port = os.getenv('HBNB_API_PORT', 5000)
 
 app.register_blueprint(app_views)
 
+
 @app.teardown_appcontext
 def teardown_db(exception):
     """
