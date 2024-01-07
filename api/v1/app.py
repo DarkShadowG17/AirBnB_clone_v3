@@ -13,12 +13,12 @@ host = os.getenv('HBNB_API_HOST', '0.0.0.0')
 port = os.getenv('HBNB_API_PORT', 5000)
 
 
-
 @app.teardown_appcontext
 def teardown_appcontext(error):
     """Closes storage"""
     storage.close()
-    
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     """404 page"""
