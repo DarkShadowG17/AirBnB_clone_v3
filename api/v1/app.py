@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import os
-from flask import Flask, jsonify
+from flask import Flask, make_response, jsonify
 from models import storage
 from api.v1.views import app_views
 from os import getenv
@@ -22,7 +22,7 @@ def teardown_appcontext(error):
 @app.errorhandler(404)
 def page_not_found(e):
     """404 page"""
-    return jsonify({"error": "Not found"}), 404
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 if __name__ == "__main__":
