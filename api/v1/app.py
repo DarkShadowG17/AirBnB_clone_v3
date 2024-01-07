@@ -1,7 +1,7 @@
 #!usr/bin/python3
 
-from flask import Flask, Blueprint, jsonify, make_response
-from flask_restful import Api
+import os
+from flask import Flask
 from models import storage
 from api.v1.views import app_views
 from os import getenv
